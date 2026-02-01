@@ -1,0 +1,21 @@
+# ---- General ----
+.env
+__pycache__/
+*.pyc
+.vscode/
+
+# ---- Python ----
+venv/
+.env.*
+*.sqlite3
+
+# ---- Node / Next.js ----
+node_modules/
+.next/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ---- OS ----
+.DS_Store
+Thumbs.db

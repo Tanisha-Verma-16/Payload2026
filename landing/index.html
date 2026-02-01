@@ -1,0 +1,1243 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Quantitative Research Platform - AI-Powered Portfolio Intelligence
+    </title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #0a0a0a;
+        color: #ffffff;
+        overflow-x: hidden;
+        line-height: 1.6;
+      }
+
+      /* Animated gradient background */
+      .gradient-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          #667eea 0%,
+          #764ba2 25%,
+          #f093fb 50%,
+          #4facfe 75%,
+          #00f2fe 100%
+        );
+        background-size: 400% 400%;
+        animation: gradientShift 15s ease infinite;
+        opacity: 0.1;
+        z-index: -1;
+      }
+
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      /* Floating particles */
+      .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+
+      .particle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(100, 126, 234, 0.3);
+        animation: float 20s infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) translateX(0);
+        }
+        25% {
+          transform: translateY(-100px) translateX(50px);
+        }
+        50% {
+          transform: translateY(-50px) translateX(-50px);
+        }
+        75% {
+          transform: translateY(-150px) translateX(100px);
+        }
+      }
+
+      /* Navigation */
+      nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 20px 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+        background: rgba(10, 10, 10, 0.8);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: bold;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+      }
+
+      .nav-links a {
+        color: #ffffff;
+        text-decoration: none;
+        transition: color 0.3s;
+        font-size: 14px;
+      }
+
+      .nav-links a:hover {
+        color: #667eea;
+      }
+
+      .cta-button {
+        padding: 12px 28px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        border-radius: 25px;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .cta-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+      }
+
+      /* Hero Section */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 100px 20px 50px;
+        position: relative;
+      }
+
+      .hero h1 {
+        font-size: 72px;
+        font-weight: 800;
+        margin-bottom: 20px;
+        background: linear-gradient(
+          135deg,
+          #ffffff 0%,
+          #667eea 50%,
+          #764ba2 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: fadeInUp 1s ease-out;
+      }
+
+      .hero p {
+        font-size: 20px;
+        color: #b0b0b0;
+        max-width: 700px;
+        margin-bottom: 40px;
+        animation: fadeInUp 1s ease-out 0.2s backwards;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Glowing Sphere */
+      .sphere-container {
+        width: 400px;
+        height: 400px;
+        position: relative;
+        margin: 50px auto;
+        animation: fadeInUp 1s ease-out 0.4s backwards;
+      }
+
+      .sphere {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          #667eea 0%,
+          #764ba2 50%,
+          #f093fb 100%
+        );
+        border-radius: 50%;
+        position: relative;
+        animation: spherePulse 4s ease-in-out infinite;
+        box-shadow:
+          0 0 60px rgba(102, 126, 234, 0.6),
+          0 0 120px rgba(118, 75, 162, 0.4),
+          inset 0 0 60px rgba(255, 255, 255, 0.2);
+      }
+
+      .sphere::before {
+        content: "";
+        position: absolute;
+        top: 10%;
+        left: 10%;
+        width: 80%;
+        height: 80%;
+        background: radial-gradient(
+          circle at 30% 30%,
+          rgba(255, 255, 255, 0.4),
+          transparent 50%
+        );
+        border-radius: 50%;
+      }
+
+      .sphere-shadow {
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 300px;
+        height: 40px;
+        background: radial-gradient(
+          ellipse,
+          rgba(102, 126, 234, 0.6),
+          transparent 70%
+        );
+        filter: blur(30px);
+        animation: shadowPulse 4s ease-in-out infinite;
+      }
+
+      @keyframes spherePulse {
+        0%,
+        100% {
+          transform: scale(1) translateY(0);
+        }
+        50% {
+          transform: scale(1.05) translateY(-10px);
+        }
+      }
+
+      @keyframes shadowPulse {
+        0%,
+        100% {
+          opacity: 0.6;
+          transform: translateX(-50%) scale(1);
+        }
+        50% {
+          opacity: 0.8;
+          transform: translateX(-50%) scale(1.1);
+        }
+      }
+
+      /* Section Styling */
+      section {
+        padding: 100px 50px;
+        max-width: 1400px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 80px;
+      }
+
+      .section-header h2 {
+        font-size: 48px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, #ffffff 0%, #667eea 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .section-header p {
+        font-size: 18px;
+        color: #888;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* Feature Cards */
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 50px;
+      }
+
+      .feature-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 40px;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s,
+          background 0.3s;
+        cursor: pointer;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-10px);
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+      }
+
+      .feature-icon {
+        font-size: 48px;
+        margin-bottom: 20px;
+        display: inline-block;
+        animation: bounce 2s infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .feature-card h3 {
+        font-size: 24px;
+        margin-bottom: 15px;
+        color: #667eea;
+      }
+
+      .feature-card p {
+        color: #b0b0b0;
+        line-height: 1.8;
+      }
+
+      /* How It Works Section */
+      .how-it-works {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 30px;
+        padding: 80px 50px;
+        margin: 50px 0;
+      }
+
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+        margin-top: 50px;
+      }
+
+      .step {
+        text-align: center;
+        position: relative;
+      }
+
+      .step-number {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        font-weight: 700;
+        margin: 0 auto 20px;
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+      }
+
+      .step h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      .step p {
+        color: #888;
+        font-size: 14px;
+      }
+
+      /* Stats Section */
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        text-align: center;
+        margin: 80px 0;
+      }
+
+      .stat {
+        padding: 30px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .stat-number {
+        font-size: 48px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 10px;
+      }
+
+      .stat-label {
+        color: #888;
+        font-size: 14px;
+      }
+
+      /* Code Block */
+      .code-block {
+        background: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(102, 126, 234, 0.3);
+        border-radius: 15px;
+        padding: 30px;
+        margin: 40px 0;
+        font-family: "Courier New", monospace;
+        overflow-x: auto;
+      }
+
+      .code-block pre {
+        color: #667eea;
+        font-size: 14px;
+        line-height: 1.8;
+      }
+
+      /* Two Column Layout */
+      .two-column {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+        margin: 80px 0;
+      }
+
+      .two-column img {
+        width: 100%;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Footer */
+      footer {
+        background: rgba(255, 255, 255, 0.02);
+        padding: 50px;
+        text-align: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      footer p {
+        color: #666;
+        margin-bottom: 20px;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+      }
+
+      .social-links a {
+        color: #888;
+        font-size: 24px;
+        transition: color 0.3s;
+      }
+
+      .social-links a:hover {
+        color: #667eea;
+      }
+
+      /* Scroll Animations */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.6s,
+          transform 0.6s;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 48px;
+        }
+        .sphere-container {
+          width: 300px;
+          height: 300px;
+        }
+        .two-column {
+          grid-template-columns: 1fr;
+        }
+        nav {
+          padding: 20px;
+        }
+        .nav-links {
+          display: none;
+        }
+        section {
+          padding: 60px 20px;
+        }
+      }
+
+      /* Glossary Terms */
+      .glossary-term {
+        display: inline-block;
+        color: #667eea;
+        border-bottom: 2px dotted #667eea;
+        cursor: help;
+        position: relative;
+      }
+
+      .glossary-term:hover::after {
+        content: attr(data-definition);
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(10, 10, 10, 0.95);
+        color: white;
+        padding: 10px 15px;
+        border-radius: 8px;
+        font-size: 12px;
+        white-space: nowrap;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(102, 126, 234, 0.3);
+        z-index: 100;
+      }
+
+      /* Tooltip for math explanations */
+      .math-explain {
+        background: rgba(102, 126, 234, 0.1);
+        border-left: 3px solid #667eea;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 8px;
+      }
+
+      .math-explain h4 {
+        color: #667eea;
+        margin-bottom: 10px;
+      }
+
+      .math-explain p {
+        color: #b0b0b0;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Background Effects -->
+    <div class="gradient-bg"></div>
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav>
+      <div class="logo">📊 QuantAI</div>
+      <div class="nav-links">
+        <a href="#how-it-works">How It Works</a>
+        <a href="#features">Features</a>
+        <a href="#technology">Technology</a>
+        <a href="#glossary">Glossary</a>
+        <a
+          href="https://quant-ai-psi.vercel.app/"
+          class="cta-button"
+          target="_blank"
+          >Launch Dashboard →</a
+        >
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>Predict Markets<br />With AI Confidence</h1>
+      <p>
+        Professional quantitative research platform that combines machine
+        learning, statistical analysis, and AI reasoning to forecast market
+        volatility 21 days ahead—with full explainability.
+      </p>
+
+      <div class="sphere-container">
+        <div class="sphere"></div>
+        <div class="sphere-shadow"></div>
+      </div>
+
+      <a
+        href="https://quant-ai-psi.vercel.app/"
+        class="cta-button"
+        target="_blank"
+        >Try It Now - It's Free</a
+      >
+    </section>
+
+    <!-- Stats Section -->
+    <section>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-number">45+</div>
+          <div class="stat-label">Assets Analyzed</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Technical Indicators</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">~75%</div>
+          <div class="stat-label">Prediction Accuracy</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">21</div>
+          <div class="stat-label">Days Ahead Forecast</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What Is This Section -->
+    <section id="what-is-this" class="fade-in">
+      <div class="section-header">
+        <h2>What Is This Platform?</h2>
+        <p>Let's break down what this system does in simple terms</p>
+      </div>
+
+      <div class="two-column">
+        <div>
+          <h3 style="color: #667eea; margin-bottom: 20px">
+            🎯 The Simple Version
+          </h3>
+          <p style="font-size: 18px; line-height: 1.8; color: #b0b0b0">
+            Imagine having a smart assistant that watches the stock market 24/7,
+            notices patterns you might miss, and tells you:
+            <strong style="color: white"
+              >"Hey, the market is probably going to get more volatile (risky)
+              in the next 3 weeks."</strong
+            >
+          </p>
+          <p
+            style="
+              font-size: 18px;
+              line-height: 1.8;
+              color: #b0b0b0;
+              margin-top: 20px;
+            "
+          >
+            That's what our platform does. It uses
+            <span
+              class="glossary-term"
+              data-definition="Artificial Intelligence - computers that learn from data"
+              >AI</span
+            >
+            to predict if markets will be calm, normal, or stormy—and explains
+            <strong style="color: white">why</strong> it thinks so.
+          </p>
+        </div>
+        <div>
+          <div class="math-explain">
+            <h4>📚 Key Terms You'll See:</h4>
+            <p>
+              <strong>Volatility:</strong> How much prices bounce up and down
+              (higher = more risky)
+            </p>
+            <p>
+              <strong>Regime:</strong> The current "mood" of the market (calm vs
+              stormy)
+            </p>
+            <p>
+              <strong>Alpha:</strong> Patterns that help predict if prices will
+              go up or down
+            </p>
+            <p>
+              <strong>Confidence:</strong> How sure the AI is about its
+              prediction (like weather forecast confidence)
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="fade-in">
+      <div class="section-header">
+        <h2>How It Works</h2>
+        <p>Four simple steps from raw data to actionable insights</p>
+      </div>
+
+      <div class="how-it-works">
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Data Collection</h3>
+            <p>
+              We gather price data for 45 assets (stocks, commodities,
+              currencies) spanning 3 years of trading history
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Feature Engineering</h3>
+            <p>
+              Create 50+ technical indicators like momentum, volatility, and
+              trend signals using proven academic methods
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <h3>AI Prediction</h3>
+            <p>
+              Train XGBoost model to predict if markets will be LOW_VOL,
+              NORMAL_VOL, or HIGH_VOL 21 days ahead
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-number">4</div>
+            <h3>Explainability</h3>
+            <p>
+              Use SHAP analysis and Gemini AI to explain predictions in plain
+              English for anyone to understand
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- The Math Made Simple -->
+    <section id="math-simple" class="fade-in">
+      <div class="section-header">
+        <h2>The Math, Simplified</h2>
+        <p>Understanding the core calculations without the complexity</p>
+      </div>
+
+      <div class="two-column">
+        <div>
+          <h3 style="color: #667eea; margin-bottom: 20px">
+            📈 Momentum (Trend Following)
+          </h3>
+          <div class="code-block">
+            <pre>
+Momentum = (Price Today / Price 252 Days Ago) - 1
+
+Example:
+If Apple was $100 a year ago and is $120 today:
+Momentum = (120 / 100) - 1 = 0.20 = +20%
+
+✅ Positive momentum = upward trend
+❌ Negative momentum = downward trend</pre
+            >
+          </div>
+          <p style="color: #b0b0b0; margin-top: 15px">
+            <strong>Why this matters:</strong> Stocks with strong momentum tend
+            to keep moving in the same direction (Newton's first law for
+            stocks!)
+          </p>
+        </div>
+        <div>
+          <h3 style="color: #667eea; margin-bottom: 20px">
+            📊 Volatility (Risk Measure)
+          </h3>
+          <div class="code-block">
+            <pre>
+Volatility = Standard Deviation of Returns × √252
+
+What it measures:
+- How much prices jump around each day
+- Higher volatility = more unpredictable
+- Lower volatility = more stable
+
+Example: 
+Daily moves of ±0.5% = Low Volatility
+Daily moves of ±3.0% = High Volatility</pre
+            >
+          </div>
+          <p style="color: #b0b0b0; margin-top: 15px">
+            <strong>Why this matters:</strong> High volatility = more risk but
+            also more opportunity (or danger!)
+          </p>
+        </div>
+      </div>
+
+      <div class="math-explain" style="margin-top: 40px">
+        <h4>🧮 The Z-Score: Comparing Current to Normal</h4>
+        <p>
+          <strong>Formula:</strong> Z-Score = (Current Value - Average) /
+          Standard Deviation
+        </p>
+        <p style="margin-top: 10px">
+          <strong>Translation:</strong> "How unusual is today's value compared
+          to normal?"
+        </p>
+        <p style="margin-top: 10px">
+          <strong>Examples:</strong><br />
+          • Z-Score = 0 → Perfectly normal<br />
+          • Z-Score = 2 → Higher than 95% of historical values (unusual!)<br />
+          • Z-Score = -2 → Lower than 95% of historical values
+        </p>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="fade-in">
+      <div class="section-header">
+        <h2>What Makes This Special</h2>
+        <p>Not just predictions—full transparency and actionable strategies</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>21-Day Forecasting</h3>
+          <p>
+            Predicts market volatility regimes 3 weeks ahead—the perfect
+            timeframe for portfolio managers to rebalance positions without
+            overreacting to noise.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3>SHAP Explainability</h3>
+          <p>
+            Unlike black-box models, we show you exactly which indicators drove
+            each prediction using SHAP values (the gold standard in AI
+            interpretability).
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🤖</div>
+          <h3>AI-Powered Summaries</h3>
+          <p>
+            Gemini AI translates complex model outputs into plain-English
+            executive summaries that anyone can understand—no PhD required.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>50+ Alpha Factors</h3>
+          <p>
+            Built on peer-reviewed research from top finance journals. Every
+            indicator has academic backing—no random "magic formulas".
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Real-Time Analysis</h3>
+          <p>
+            FastAPI backend delivers predictions in under 100ms. Built with
+            Polars for 10-100x faster data processing than traditional pandas.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🎲</div>
+          <h3>Monte Carlo Risk</h3>
+          <p>
+            Simulates 1,000 possible futures to calculate Value-at-Risk (VaR),
+            maximum drawdown, and probability of loss—critical for risk
+            management.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technology Deep Dive -->
+    <section id="technology" class="fade-in">
+      <div class="section-header">
+        <h2>The Technology Stack</h2>
+        <p>
+          Enterprise-grade architecture built for reliability and performance
+        </p>
+      </div>
+
+      <div class="two-column">
+        <div>
+          <h3 style="color: #667eea; margin-bottom: 20px">
+            🧠 Machine Learning Layer
+          </h3>
+          <div class="feature-card">
+            <h3>XGBoost Classifier</h3>
+            <p>
+              <strong>What it does:</strong> Learns patterns from 50+ indicators
+              to predict whether volatility will be LOW, NORMAL, or HIGH.
+            </p>
+            <p style="margin-top: 10px">
+              <strong>Why XGBoost?</strong> Industry standard for tabular data.
+              Used by winning Kaggle teams and hedge funds worldwide.
+            </p>
+            <div class="code-block" style="margin-top: 15px">
+              <pre>
+Training: Walk-Forward Cross-Validation
+✓ Train on past data only
+✓ Test on future data only
+✓ No data leakage (prevents cheating)</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3 style="color: #667eea; margin-bottom: 20px">
+            🔬 Interpretability Layer
+          </h3>
+          <div class="feature-card">
+            <h3>SHAP Analysis</h3>
+            <p>
+              <strong>What it does:</strong> Breaks down each prediction into
+              contributions from individual features (like showing your math
+              work).
+            </p>
+            <p style="margin-top: 10px">
+              <strong>Example:</strong> "Predicted HIGH_VOL because:<br />
+              • Volatility z-score was 2.3σ above normal (+0.45 impact)<br />
+              • RSI was 72 = overbought (+0.12 impact)<br />
+              • 6-month momentum turned negative (+0.08 impact)"
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="math-explain" style="margin-top: 40px">
+        <h4>🎓 Academic Foundations</h4>
+        <p>
+          <strong>Jegadeesh & Titman (1993):</strong> Momentum strategy—buying
+          past winners and selling losers
+        </p>
+        <p>
+          <strong>Wilder (1978):</strong> RSI indicator for detecting
+          overbought/oversold conditions
+        </p>
+        <p>
+          <strong>Lundberg & Lee (2017):</strong> SHAP values for unified model
+          interpretability
+        </p>
+      </div>
+    </section>
+
+    <!-- Glossary Section -->
+    <section id="glossary" class="fade-in">
+      <div class="section-header">
+        <h2>Glossary: Terms Demystified</h2>
+        <p>A plain-English guide to quantitative finance jargon</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3>Alpha</h3>
+          <p>
+            A signal or pattern that predicts future returns. "Finding alpha"
+            means discovering something the market hasn't priced in yet.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>Sharpe Ratio</h3>
+          <p>
+            Return per unit of risk. Formula: (Return - Risk-Free Rate) /
+            Volatility. Higher is better. Above 1.0 is good, above 2.0 is
+            excellent.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>Maximum Drawdown</h3>
+          <p>
+            The biggest peak-to-trough loss. If you invested $100 and it dropped
+            to $75 before recovering, that's a 25% drawdown.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>Value-at-Risk (VaR)</h3>
+          <p>
+            The maximum loss you'd expect 95% of the time. VaR of 10% means
+            "there's only a 5% chance you'll lose more than 10%."
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>CVaR (Conditional VaR)</h3>
+          <p>
+            The average loss in the worst 5% of outcomes. Answers: "If things go
+            bad, HOW bad?" More useful than VaR for tail risk.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>Walk-Forward Validation</h3>
+          <p>
+            Training method that simulates real trading: always test on future
+            data you haven't seen. Prevents "backtesting overfitting".
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>Feature Engineering</h3>
+          <p>
+            Creating useful inputs for ML models. Example: turning raw prices
+            into "momentum", "volatility", and "mean reversion" signals.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>Regime Classification</h3>
+          <p>
+            Identifying what "state" the market is in. Like weather: sunny (low
+            vol), cloudy (normal), or stormy (high vol).
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>SHAP Values</h3>
+          <p>
+            Explainability metric from game theory. Shows each feature's
+            contribution to a prediction. The "why" behind the "what".
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>Cross-Sectional</h3>
+          <p>
+            Comparing assets to each other at the same point in time. Example:
+            "AAPL has stronger momentum than MSFT today."
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>Bollinger Bands</h3>
+          <p>
+            Volatility indicator showing price channels. When price hits upper
+            band = potentially overbought. Lower band = potentially oversold.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>RSI (Relative Strength)</h3>
+          <p>
+            Momentum oscillator (0-100). Above 70 = overbought (potential
+            reversal down). Below 30 = oversold (potential reversal up).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Trust This Section -->
+    <section class="fade-in">
+      <div class="section-header">
+        <h2>Why Trust This Model?</h2>
+        <p>Transparency and realistic expectations</p>
+      </div>
+
+      <div class="two-column">
+        <div>
+          <h3 style="color: #667eea; margin-bottom: 20px">
+            ✅ What We Do Right
+          </h3>
+          <div class="feature-card">
+            <p>
+              <strong>1. No Data Leakage</strong><br />
+              We use walk-forward validation—the model never sees future data
+              during training.
+            </p>
+
+            <p style="margin-top: 15px">
+              <strong>2. Realistic Accuracy</strong><br />
+              ~75% accuracy on 21-day predictions. We don't claim 99% (that's
+              usually a red flag).
+            </p>
+
+            <p style="margin-top: 15px">
+              <strong>3. Full Explainability</strong><br />
+              Every prediction comes with SHAP values showing which features
+              drove the decision.
+            </p>
+
+            <p style="margin-top: 15px">
+              <strong>4. Academic Rigor</strong><br />
+              All factors based on peer-reviewed research from top finance
+              journals.
+            </p>
+          </div>
+        </div>
+        <div>
+          <h3 style="color: #667eea; margin-bottom: 20px">
+            ⚠️ Honest Limitations
+          </h3>
+          <div class="feature-card">
+            <p>
+              <strong>1. Not Financial Advice</strong><br />
+              This is a research tool, not investment advice. Always do your own
+              due diligence.
+            </p>
+
+            <p style="margin-top: 15px">
+              <strong>2. Past ≠ Future</strong><br />
+              Markets change. What worked historically may not work tomorrow
+              (regime shifts).
+            </p>
+
+            <p style="margin-top: 15px">
+              <strong>3. Black Swan Events</strong><br />
+              Models can't predict unprecedented events (COVID-19, financial
+              crises, wars).
+            </p>
+
+            <p style="margin-top: 15px">
+              <strong>4. 75% Not 100%</strong><br />
+              The model is wrong ~25% of the time. Volatility is inherently hard
+              to predict.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="hero" style="min-height: 70vh">
+      <h1 style="font-size: 56px">Ready to Try It?</h1>
+      <p style="max-width: 600px">
+        Access the live dashboard to analyze 45 assets, view real-time
+        predictions, and generate AI-powered portfolio strategies—completely
+        free.
+      </p>
+
+      <div style="margin-top: 40px">
+        <a
+          href="https://quant-ai-psi.vercel.app/"
+          class="cta-button"
+          target="_blank"
+          style="font-size: 18px; padding: 16px 40px"
+          >Launch Dashboard →</a
+        >
+      </div>
+
+      <div
+        class="sphere-container"
+        style="width: 300px; height: 300px; margin-top: 60px"
+      >
+        <div class="sphere"></div>
+        <div class="sphere-shadow"></div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        &copy; 2026 Quantitative Research Platform. Built for Quantifying the
+        Markets Hackathon.
+      </p>
+      <p style="color: #444; font-size: 12px; margin-top: 10px">
+        Tech Stack: Python • Polars • XGBoost • SHAP • Gemini • FastAPI •
+        Streamlit
+      </p>
+      <div class="social-links" style="margin-top: 20px">
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Twitter</a>
+      </div>
+    </footer>
+
+    <script>
+      // Create floating particles
+      function createParticles() {
+        const particlesContainer = document.getElementById("particles");
+        const particleCount = 30;
+
+        for (let i = 0; i < particleCount; i++) {
+          const particle = document.createElement("div");
+          particle.className = "particle";
+
+          const size = Math.random() * 4 + 2;
+          particle.style.width = `${size}px`;
+          particle.style.height = `${size}px`;
+          particle.style.left = `${Math.random() * 100}%`;
+          particle.style.top = `${Math.random() * 100}%`;
+          particle.style.animationDelay = `${Math.random() * 20}s`;
+          particle.style.animationDuration = `${Math.random() * 10 + 15}s`;
+
+          particlesContainer.appendChild(particle);
+        }
+      }
+
+      // Scroll animations
+      function handleScroll() {
+        const elements = document.querySelectorAll(".fade-in");
+
+        elements.forEach((element) => {
+          const elementTop = element.getBoundingClientRect().top;
+          const elementBottom = element.getBoundingClientRect().bottom;
+
+          if (elementTop < window.innerHeight - 100 && elementBottom > 0) {
+            element.classList.add("visible");
+          }
+        });
+      }
+
+      // Initialize
+      createParticles();
+      window.addEventListener("scroll", handleScroll);
+      handleScroll(); // Check initial viewport
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
