@@ -302,41 +302,6 @@ Top Drivers:
   rsi_14 = 72 → SHAP: +0.12  (overbought → volatility spike)
 ```
 
----
-
-## 🎤 **"Mic Drop" Moments for Judges**
-
-### **Q: How is this different from a typical ML project?**
-
-> "Most quant models are black boxes. Ours is fully explainable:
->
-> - SHAP shows _why_ each prediction was made
-> - Gemini translates outputs into executive summaries
-> - Portfolio engine provides actionable, risk-managed strategies
->
-> It's a **decision support system**, not just a prediction model."
-
-### **Q: Why 75% accuracy instead of 99%?**
-
-> "99% accuracy in finance is a red flag for data leakage. Our 75% accuracy on 21-day regime prediction is:
->
-> - Realistic (volatility is hard to predict)
-> - Validated with walk-forward CV (no future data used)
-> - Economically meaningful (SHAP confirms features align with theory)
->
-> We optimize for **trust**, not vanity metrics."
-
-### **Q: Can you explain a prediction?**
-
-> "Absolutely. [Pull up SHAP local explanation]
->
-> For AAPL on 2026-01-20, the model predicted HIGH_VOL because:
->
-> 1. Volatility z-score was 2.3σ above normal
-> 2. ATR was elevated (14% annualized)
-> 3. 6-month momentum turned negative (reversal risk)
->
-> These are the exact signals volatility traders watch."
 
 ---
 
@@ -381,43 +346,8 @@ target = vol_regime  # Predicts current regime
 target = vol_regime.shift(-21).over("Ticker")  # Predicts future regime
 ```
 
----
 
-## 🛠️ **Development**
 
-### **Run Individual Components**
-
-```bash
-# Data ingestion only
-python day1_morning.py
-
-# Factor engineering only
-python day1_afternoon.py
-
-# ML training only
-python day2_modeling.py
-
-# SHAP analysis only
-python shap_analysis.py
-
-# Strategy demo
-python portfolio_strategy_decision_engine.py
-
-# Gemini demo
-python financial_reasoning_agent.py
-```
-
-### **Testing**
-
-```bash
-# Test API endpoints
-pytest tests/
-
-# Test with curl
-curl http://localhost:8000/api/predict-regime/AAPL
-```
-
----
 
 ## 📚 **References**
 
